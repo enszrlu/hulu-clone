@@ -50,7 +50,7 @@ Extras I have Included:
 ### Links
 
 -   Repo URL: [Solution](https://github.com/enszrlu/hulu-clone)
--   Live Site URL: [Live Site]()
+-   Live Site URL: [Live Site](https://hulu-clone-enszrlu.vercel.app/)
 
 ### Screenshot
 
