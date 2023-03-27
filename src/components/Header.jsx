@@ -10,12 +10,29 @@ import {
 import Image from 'next/image';
 import HeaderItem from './HeaderItem';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 function Header() {
+    const [searchToggle, setSearchToggle] = useState(true);
+    const [searchInput, setSearchInput] = useState('');
     const router = useRouter();
+
+    function search() {
+        if (!searchInput) {
+            alert('Please Enter a Search Term');
+            return;
+        }
+        setSearchInput('');
+        router.push({
+            pathname: '/search',
+            query: {
+                query: searchInput
+            }
+        });
+    }
     return (
-        <div className="sticky top-0 z-20 flex px-10 pt-6 pb-3 text-white flex-col items-center gap-4 shadow-lg md:flex-row md:justify-between">
-            <div id="icons" className="flex w-64 justify-between md:w-96">
+        <div className="sticky top-0 z-20 flex px-10 pt-6 pb-3 text-white flex-col items-center gap-4 shadow-lg md:flex-row md:justify-items-stretch">
+            <div id="icons" className="flex w-64 justify-between items-center md:w-96">
                 <HeaderItem
                     onClick={() => router.push('/')}
                     Icon={HomeIcon}
@@ -28,10 +45,31 @@ function Header() {
                 ></HeaderItem>
                 <HeaderItem Icon={CheckBadgeIcon} title="VERIFIED"></HeaderItem>
                 <HeaderItem Icon={RectangleStackIcon} title="COLLECTIONS"></HeaderItem>
-                <HeaderItem Icon={MagnifyingGlassIcon} title="SEARCH"></HeaderItem>
+                <HeaderItem
+                    onClick={() => setSearchToggle((prev) => !prev)}
+                    Icon={MagnifyingGlassIcon}
+                    title="SEARCH"
+                ></HeaderItem>
                 <HeaderItem Icon={UserIcon} title="ACCOUNT"></HeaderItem>
             </div>
-            <div className="relative h-8 w-24">
+            {/* Search Box */}
+            {searchToggle && (
+                <div className="flex items-center rounded-full p-1 pl-5 justify-between gap-2 relative -top-3 border-2">
+                    <input
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        type="text"
+                        placeholder="Search"
+                        className="bg-transparent outline-none flex-grow text-sm text-gray-200 placeholder-gray-400"
+                    />
+                    <MagnifyingGlassIcon
+                        className="h-8 bg-green-400 text-white rounded-full p-2 cursor-pointer md:inline-flex"
+                        onClick={search}
+                    ></MagnifyingGlassIcon>
+                </div>
+            )}
+
+            <div className="relative h-8 w-24 -top-3 justify-self-end md:ml-auto">
                 <Image
                     src="/img/Hulu_Logo.svg"
                     fill
