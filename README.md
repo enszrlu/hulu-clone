@@ -30,6 +30,10 @@ Extras I have Included:
 -   Scroll when hover on corner of Live Anywhere cards
 -   Custom hover bounce on icons
 -   Loading bar on top
+-   Pagination on Homepage to discover more movies & TV series
+-   Search ability with search box toggles when clicked to search button
+-   Pagination on search independent of movies & TV series, shows maximum combined
+-   Placeholder poster for movies & TV series that does not have poster
 
 ## My process
 
@@ -44,6 +48,10 @@ Extras I have Included:
 ### What I learned
 
 -   Integrate API
+-   Pagination with Material UI
+-   Multiple fetch requests
+-   Dynamic Components
+-   Server-side rendering
 
 ## Preview
 

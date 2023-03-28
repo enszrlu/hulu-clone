@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 function Nav() {
     const router = useRouter();
     return (
-        <nav className="text-white relative">
+        <nav className="text-white relative ">
             <div className="flex py-6 mr-10 px-10 whitespace-nowrap text-2xl gap-10 overflow-x-scroll scrollbar-hide">
                 {Object.entries(requests).map(([key, { title, url }]) => (
                     <h2

@@ -10,11 +10,16 @@
   },
   "dependencies": {
     "@badrap/bar-of-progress": "^0.2.2",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@heroicons/react": "^2.0.16",
+    "@mui/material": "^5.11.15",
+    "@mui/styled-engine-sc": "^5.11.11",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-flip-move": "^3.0.5",
+    "styled-components": "^5.3.9",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
