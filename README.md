@@ -34,6 +34,9 @@ Extras I have Included:
 -   Search ability with search box toggles when clicked to search button
 -   Pagination on search independent of movies & TV series, shows maximum combined
 -   Placeholder poster for movies & TV series that does not have poster
+-   Collections
+-   Collections when clicked opens a page that shows all movies
+-   Movies when clicked opens youtube trailer
 
 ## My process
 
@@ -44,6 +47,8 @@ Extras I have Included:
 -   Flexbox
 -   CSS Grid
 -   Mobile-first workflow
+-   tmdb API
+-   Youtube Database v3 API
 
 ### What I learned
 

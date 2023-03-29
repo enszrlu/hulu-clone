@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 function Header() {
-    const [searchToggle, setSearchToggle] = useState(true);
+    const [searchToggle, setSearchToggle] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const router = useRouter();
 

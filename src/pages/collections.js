@@ -2,8 +2,18 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import ContentCollection from '../components/ContentCollection';
 import requestsCollections from '../../utils/requestsCollections';
+import Pagination from '../components/Pagination';
+import { useRouter } from 'next/router';
 
-export default function Collections({ data }) {
+export default function Collections({ data, maxPage }) {
+    const router = useRouter();
+    function handleChange(page) {
+        router.push(`/collections?page=${page}`);
+    }
+
+    function handleClick(id) {
+        router.push(`/collectionMovies?id=${id}`);
+    }
     return (
         <div className="bg-darkBlue min-h-[100svh]">
             <Head>
@@ -15,12 +25,16 @@ export default function Collections({ data }) {
             <Header></Header>
 
             {/* Content */}
-            <ContentCollection data={data}></ContentCollection>
+            <ContentCollection data={data} handleClick={handleClick}></ContentCollection>
+
+            {/* Pagination */}
+            <Pagination handleChange={handleChange} maxPages={maxPage}></Pagination>
         </div>
     );
 }
 
 export async function getServerSideProps(context) {
+    const page = context.query.page || 1;
     let results = [];
     let requestCollection;
     let collectionIds = [
@@ -32,9 +46,9 @@ export async function getServerSideProps(context) {
         8918, 8936, 8945, 8979, 9046, 9068, 9088, 9309, 9328, 9329, 9332, 9338, 9380, 9435, 9436,
         9485, 9500, 9518, 9521, 9649
     ];
-    console.log(collectionIds.length);
+    const maxPage = Math.ceil(collectionIds.length / 18);
 
-    for (let i = 0; i < collectionIds.length; i++) {
+    for (let i = (page - 1) * 18; i < Math.min(collectionIds.length, page * 18); i++) {
         requestCollection = await fetch(
             `https://api.themoviedb.org/3/collection/${collectionIds[i]}${requestsCollections['collection']?.url}`
         ).then((res) => res.json());
@@ -55,6 +69,6 @@ export async function getServerSideProps(context) {
     }
 
     return {
-        props: { data: results }
+        props: { data: results, maxPage: maxPage }
     };
 }

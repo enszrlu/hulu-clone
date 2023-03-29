@@ -1,7 +1,7 @@
 import React from 'react';
 import Collection from './Collection';
 
-function ContentCollection({ data }) {
+function ContentCollection({ data, handleClick }) {
     return (
         <div className="mt-10 grid grid-cols-1 gap-6 px-10 overflow-hidden md:grid-cols-2 lg:grid-cols-3 3xl:flex 3xl:flex-wrap">
             {data.map((collection) => (
@@ -19,6 +19,7 @@ function ContentCollection({ data }) {
                         collection.original_title ||
                         collection.title
                     }
+                    onClick={() => handleClick(collection.id)}
                 ></Collection>
             ))}
         </div>

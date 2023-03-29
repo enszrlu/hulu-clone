@@ -3,11 +3,12 @@ import { HandThumbUpIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { forwardRef } from 'react';
 
-const Collection = forwardRef(({ img, overview, title }, ref) => {
+const Collection = forwardRef(({ img, overview, title, onClick }, ref) => {
     return (
         <div
             ref={ref}
-            className="w-full h-96 text-white flex flex-col gap-1 hover:scale-105  transform transition duration-300 ease-out group 3xl:w-96"
+            className="w-full h-96 text-white flex flex-col gap-1 hover:scale-105  transform transition duration-300 ease-out group cursor-pointer 3xl:w-96"
+            onClick={onClick}
         >
             <div className="relative h-[70%]">
                 <Image
