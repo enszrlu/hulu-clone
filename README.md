@@ -27,7 +27,6 @@ Users should be able to:
 
 Extras I have Included:
 
--   Scroll when hover on corner of Live Anywhere cards
 -   Custom hover bounce on icons
 -   Loading bar on top
 -   Pagination on Homepage to discover more movies & TV series
