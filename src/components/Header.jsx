@@ -67,7 +67,11 @@ function Header() {
                     title="SEARCH"
                     id="search"
                 ></HeaderItem>
-                <HeaderItem Icon={UserIcon} title="ACCOUNT"></HeaderItem>
+                <HeaderItem
+                    onClick={() => router.push('/account')}
+                    Icon={UserIcon}
+                    title="ACCOUNT"
+                ></HeaderItem>
             </div>
             {/* Search Box */}
             {searchToggle && (

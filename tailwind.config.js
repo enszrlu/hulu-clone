@@ -16,7 +16,8 @@ module.exports = {
                 '3xl': '2000px'
             },
             colors: {
-                darkBlue: '#0D1F29'
+                darkBlue: '#0D1F29',
+                huluGreen: '#1AE783'
             },
             animation: {
                 bounceCustom: 'bounceCustom 1s both ease-in-out infinite'
