@@ -36,7 +36,7 @@ function SignIn() {
                 type="email"
                 name="email"
                 id="email"
-                className="w-96 h-10 px-3 rounded-md border-2 border-gray text-black focus:outline-green-500"
+                className="w-64 h-10 px-3 rounded-md border-2 border-gray text-black focus:outline-green-500 md:w-96"
                 placeholder="Email"
             />
             <input
@@ -44,11 +44,11 @@ function SignIn() {
                 type="password"
                 name="password"
                 id="password"
-                className="w-96 h-10 px-3 rounded-md border-2 border-gray text-black focus:outline-green-500"
+                className="w-64 h-10 px-3 rounded-md border-2 border-gray text-black focus:outline-green-500 md:w-96"
                 placeholder="Password"
             />
             <button
-                className="w-96 h-10 rounded-md border-2 border-none bg-huluGreen focus:outline-green-500"
+                className="w-full h-10 rounded-md border-2 border-none bg-huluGreen focus:outline-green-500"
                 onClick={signIn}
             >
                 Sign In
