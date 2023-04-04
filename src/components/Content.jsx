@@ -4,12 +4,21 @@ import YouTube from 'react-youtube';
 import { useState, useEffect } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import youtubeRequest from '../../utils/youtubeRequest';
+import { Transition } from '@headlessui/react';
+
+import { doc, getDoc } from 'firebase/firestore';
+import db from '../../firebase';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../store/userSlice';
 
 function Content({ data }) {
     const [viewportWidth, setViewportWidth] = useState('500');
     const [viewportHeight, setViewportHeight] = useState('500');
     const [trailer, setTrailer] = useState(false);
     const [trailerId, setTrailerId] = useState('');
+    const user = useSelector(selectUser);
+    const [savedBookmarks, setSavedBookmarks] = useState([]);
+    const [bookmarksUpdated, setBookmarksUpdated] = useState(false);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -26,6 +35,18 @@ function Content({ data }) {
 
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        async function fetchData() {
+            const userRef = doc(db, 'bookmarks', user.uid);
+            const userSnap = await getDoc(userRef);
+            if (userSnap.exists()) {
+                const userBookmarks = userSnap.data().bookmarks || [];
+                setSavedBookmarks(userBookmarks);
+            }
+        }
+        user && fetchData();
+    }, [user, bookmarksUpdated]);
 
     const opts = {
         height: viewportHeight * 0.8,
@@ -47,7 +68,16 @@ function Content({ data }) {
 
     return (
         <div className="grid grid-cols-1 gap-6 px-10 overflow-hidden md:grid-cols-2 lg:grid-cols-3 3xl:flex 3xl:flex-wrap">
-            {trailer && (
+            <Transition
+                show={trailer}
+                enter="transition-opacity duration-500"
+                enterFrom="opacity-0 w-0"
+                enterTo="opacity-100"
+                leave="transition-opacity duration-500"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+                className="fixed z-50 top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%]"
+            >
                 <div className="fixed z-50 top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%]">
                     <div className="flex justify-end">
                         <XMarkIcon
@@ -57,7 +87,7 @@ function Content({ data }) {
                     </div>
                     <YouTube videoId={trailerId} opts={opts} />
                 </div>
-            )}
+            </Transition>
 
             {data.map((movie) => (
                 <Movie
@@ -71,6 +101,10 @@ function Content({ data }) {
                     title={movie.title || movie.original_name || movie.original_title || movie.name}
                     date={movie.release_date || movie.first_air_date}
                     vote={movie.vote_count}
+                    id={movie.id}
+                    savedBookmarks={savedBookmarks}
+                    bookmarkUpdate={() => setBookmarksUpdated((prev) => !prev)}
+                    type={movie.release_date ? 'movie' : 'tv'}
                     onClick={() =>
                         handleClick(
                             movie.title ||

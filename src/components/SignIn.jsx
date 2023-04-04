@@ -28,6 +28,12 @@ function SignIn() {
             });
     };
 
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            signIn(event);
+        }
+    }
+
     return (
         <div className="mx-auto w-fit flex flex-col gap-3 shadow-xl bg-[#19313e] p-8 rounded-md text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <h1 className="text-4xl text-white py-3">Sign In</h1>
@@ -38,6 +44,9 @@ function SignIn() {
                 id="email"
                 className="w-64 h-10 px-3 rounded-md border-2 border-gray text-black focus:outline-green-500 md:w-96"
                 placeholder="Email"
+                onKeyDown={(e) => {
+                    handleKeyPress(e);
+                }}
             />
             <input
                 ref={passwordRef}
@@ -46,6 +55,9 @@ function SignIn() {
                 id="password"
                 className="w-64 h-10 px-3 rounded-md border-2 border-gray text-black focus:outline-green-500 md:w-96"
                 placeholder="Password"
+                onKeyDown={(e) => {
+                    handleKeyPress(e);
+                }}
             />
             <button
                 className="w-full h-10 rounded-md border-2 border-none bg-huluGreen focus:outline-green-500"

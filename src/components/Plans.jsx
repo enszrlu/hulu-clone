@@ -72,8 +72,6 @@ function PlansScreen() {
         );
     };
 
-    console.log(subscription);
-
     return (
         <div className="flex flex-col gap-3">
             <h1 className="font-bold border-b-2 border-gray-500">{`Plans (Current Plan: ${subscription?.role.toUpperCase()})`}</h1>

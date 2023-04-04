@@ -39,6 +39,8 @@ Technologies:
 -   Firebase Integration
 -   Account Section with email auth
 -   Payment with Stripe
+-   Saving bookmarks
+-   Recommendations based on saved bookmarks
 
 ## My process
 
@@ -51,8 +53,9 @@ Technologies:
 -   Mobile-first workflow
 -   tmdb API
 -   Youtube Database v3 API
--   Firebase
+-   Firebase Authentication
 -   Stripe
+-   Firestore
 
 ### What I learned
 
@@ -61,7 +64,7 @@ Technologies:
 -   Multiple fetch requests
 -   Dynamic Components
 -   Server-side rendering
--   Firebase Database and Auth
+-   Firebase Database(Firestore) and Auth
 -   Stripe Integration
 
 ## Preview

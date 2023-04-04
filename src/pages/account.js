@@ -27,8 +27,10 @@ export default function Account() {
                         email: userAuth.email
                     })
                 );
+                document.cookie = `userId=${userAuth.uid}; path=/`;
             } else {
                 dispatch(logout());
+                localStorage.setItem('userId', null);
             }
         });
         return unsubscribe;
@@ -39,8 +41,6 @@ export default function Account() {
             alert(error.message);
         });
     };
-
-    // console.log(user);
 
     return (
         <div className="bg-darkBlue min-h-[100svh]">

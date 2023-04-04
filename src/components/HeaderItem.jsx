@@ -4,7 +4,7 @@ function HeaderItem({ Icon, title, onClick }) {
     return (
         <div
             onClick={onClick}
-            className="group flex flex-col items-center text-center cursor-pointer gap-2 w-10"
+            className="group flex flex-col items-center text-center cursor-pointer gap-2 w-10 active:scale-90 transition duration-150"
         >
             <Icon className="h-6 w-6 group-hover:animate-bounceCustom"></Icon>
             <p className="opacity-0 select-none group-hover:opacity-100 text-xs md:block group-active:text-red-500">

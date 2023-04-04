@@ -5,12 +5,18 @@ import {
     CheckBadgeIcon,
     RectangleStackIcon,
     MagnifyingGlassIcon,
-    UserIcon
+    UserIcon,
+    BookmarkSquareIcon
 } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import HeaderItem from './HeaderItem';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { auth } from '../../firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout, selectUser } from '../../store/userSlice';
+import { Transition } from '@headlessui/react';
 
 function Header() {
     const [searchToggle, setSearchToggle] = useState(false);
@@ -36,6 +42,25 @@ function Header() {
         }
     }
 
+    const user = useSelector(selectUser);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+            if (userAuth) {
+                dispatch(
+                    login({
+                        uid: userAuth.uid,
+                        email: userAuth.email
+                    })
+                );
+            } else {
+                dispatch(logout());
+            }
+        });
+        return unsubscribe;
+    }, []);
+
     return (
         <div
             className="sticky top-0 z-20 flex px-10 pt-6 pb-3 text-white flex-col items-center gap-4 shadow-lg md:flex-row md:justify-items-stretch select-none"
@@ -52,7 +77,7 @@ function Header() {
                     Icon={BoltIcon}
                     title="TRENDING"
                 ></HeaderItem>
-                <HeaderItem Icon={CheckBadgeIcon} title="VERIFIED"></HeaderItem>
+
                 <HeaderItem
                     Icon={RectangleStackIcon}
                     title="COLLECTIONS"
@@ -67,6 +92,29 @@ function Header() {
                     title="SEARCH"
                     id="search"
                 ></HeaderItem>
+                <Transition
+                    show={user?.uid ? true : false}
+                    enter="transition-opacity duration-500"
+                    enterFrom="opacity-0 w-0"
+                    enterTo="opacity-100"
+                    leave="transition-opacity duration-500"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="flex gap-4">
+                        <HeaderItem
+                            onClick={() => router.push('/bookmarks')}
+                            Icon={BookmarkSquareIcon}
+                            title="BOOKMARKS"
+                        ></HeaderItem>
+                        <HeaderItem
+                            onClick={() => router.push('/recommended')}
+                            Icon={CheckBadgeIcon}
+                            title="RECOMMENDED"
+                        ></HeaderItem>
+                    </div>
+                </Transition>
+
                 <HeaderItem
                     onClick={() => router.push('/account')}
                     Icon={UserIcon}
@@ -74,7 +122,15 @@ function Header() {
                 ></HeaderItem>
             </div>
             {/* Search Box */}
-            {searchToggle && (
+            <Transition
+                show={searchToggle}
+                enter="transition-opacity duration-500"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="transition-opacity duration-500"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+            >
                 <div
                     className="flex items-center rounded-full p-1 pl-5 justify-between gap-2 relative -top-3 border-2"
                     onClick={(e) => {
@@ -96,7 +152,7 @@ function Header() {
                         onClick={search}
                     ></MagnifyingGlassIcon>
                 </div>
-            )}
+            </Transition>
 
             <div className="relative h-8 w-24 -top-3 justify-self-end md:ml-auto">
                 <Image
