@@ -101,7 +101,7 @@ function Header() {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="flex gap-4">
+                    <div className="flex gap-1 md:gap-4">
                         <HeaderItem
                             onClick={() => router.push('/bookmarks')}
                             Icon={BookmarkSquareIcon}
