@@ -61,7 +61,6 @@ function Content({ data }) {
         const youtubeData = await fetch(`${youtubeRequest['trailer']?.url}&q=${query}`).then(
             (res) => res.json()
         );
-        console.log(youtubeData);
         setTrailer(true);
         setTrailerId(youtubeData.items[0].id.videoId);
     };

@@ -80,12 +80,16 @@ const Movie = forwardRef(
                         <p>{vote}</p>
                     </div>
                 </div>
-                <BookmarkIcon
-                    className={`${
-                        savedBookmarks.includes(`${type}-${id}`) ? 'text-huluGreen' : 'text-white'
-                    } absolute top-1 right-1 h-6 w-6 hover:text-huluGreen cursor-pointer active:scale-90 transition duration-150`}
-                    onClick={handleClick}
-                ></BookmarkIcon>
+                {user && (
+                    <BookmarkIcon
+                        className={`${
+                            savedBookmarks.includes(`${type}-${id}`)
+                                ? 'text-huluGreen'
+                                : 'text-white'
+                        } absolute top-1 right-1 h-6 w-6 hover:text-huluGreen cursor-pointer active:scale-90 transition duration-150`}
+                        onClick={handleClick}
+                    ></BookmarkIcon>
+                )}
                 {showAlert ? (
                     alertType == 1 ? (
                         <Alert severity="success" className="absolute right-0 top-8">
